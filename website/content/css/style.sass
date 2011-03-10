@@ -1,0 +1,70 @@
+@import "compass/utilities/general/clearfix"
+@import "compass/css3/transform"
+@import "compass/css3/box-shadow"
+@import "blueprint/buttons"
+@import "blueprint/typography"
+
+body
+  background: url("../js/jquery-ui/images/ui-bg_fine-grain_15_ffffff_60x60.png") repeat scroll 50% 50% #FFFFFF
+  +blueprint-typography
+  max-width: 900px
+  margin-left: auto
+  margin-right: auto
+
+a:focus, a:active
+  outline: none
+
+a.button, a.button:visited
+  +anchor-button
+  padding: 0.5em 1.5em
+  font-weight: bold
+  font-size: 1.3em
+  background: url("../js/jquery-ui/images/ui-bg_fine-grain_65_654b24_60x60.png")
+  //background: url("../js/jquery-ui/images/ui-bg_fine-grain_15_ffffff_60x60.png") repeat scroll 50% 50% #FFFFFF
+  color: white
+
+a.button:hover
+  border-color: orange
+  color: white
+
+.about
+  width: 600px
+  text-align: left
+  margin-left: auto
+  margin-right: auto
+
+
+.tab
+  +clearfix
+  text-align: center
+
+.forkmeholder
+  position: absolute
+  right: 0
+  top: 0
+  width: 500px
+  height: 500px
+  overflow: hidden
+  .forkme
+    background: url("../js/jquery-ui/images/ui-bg_fine-grain_65_654b24_60x60.png")
+    position: absolute
+    overflow: hidden
+    +rotate
+    +box-shadow(#333, 1px, 1px, 15px, 0, false)
+    right: -4em
+    top: 2.5em
+    a
+      border: 1px solid #aaf
+      color: #fff
+      display: block
+      font-weight: bold
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
+      margin: 0.05em 0
+      padding: 0.5em 3.5em
+      text-align: center
+      text-decoration: none
+      text-shadow: 0 0 0.5em #444
+    a:hover
+      color: #fff
+    &:hover
+      background-color: #00f

@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <link href='/js/jquery-ui/jquery-ui.custom.css' rel='stylesheet' type='text/css' />
+    <link href='/css/style.css' rel='stylesheet' type='text/css' />
+    <title>Leechmarks</title>
+  </head>
+  <body>
+    <div class='forkmeholder'>
+      <div class='forkme'>
+        <a href='http://github.com/yourcelf/leechmarks'>Fork me on GitHub!</a>
+      </div>
+    </div>
+    <div style='text-align: center;'>
+      <h1>Leechmarks</h1>
+      <p>This is a small collection of bookmarklets for social websites.</p>
+    </div>
+    <div class='ui-widget-content' id='tabs'>
+      <ul class='tablinks'>
+        <li>
+          <a href='#tab1'>GraphFi</a>
+        </li>
+        <li>
+          <a href='#tab2'>ImgurReddit</a>
+        </li>
+        <li>
+          <a href='#tab3'>JaxyChan (experimental)</a>
+        </li>
+      </ul>
+      <div class='tab' id='tab1'>
+        <div class='about'>
+          <p>GraphFi is a visualization/navigation tool for <a href='http://metafilter.com'>metafilter</a>. It displays a chart indicating the number of times a comment has been favorited and the reply/quoting relationships between comments. It also inserts anchor links and replies into the comment feed to assist with &#8220;threading&#8221;.</p>
+        </div>
+        <p>
+          Drag this bookmarklet to your bookmarks bar, or right-click and "bookmark this".
+          <br />
+          &rarr;
+          <a class='button' href="javascript:void((function(){var s=document.createElement('script');s.type='text/javascript';s.src='http://media.mit.edu/~cfd/graphfi/bm.js';document.getElementsByTagName('head')[0].appendChild(s);})())" id='graphfibookmarklet' title='Bookmark Me'>GraphFi</a>
+          &larr;
+          <br />
+        </p>
+        <div class='about'>
+          <p>
+            When in a metafilter discussion, click it to augment the page.  Works
+            on any metafilter post page (talk, blue, green, etc); most useful in
+            larger threads (50+ comments).
+          </p>
+          <p>
+            NOTE: will not function properly in Internet Explorer less than version 9-beta.
+          </p>
+        </div>
+        <p>
+          <img alt='hot' src='img/graphfi.png' />
+        </p>
+      </div>
+      <div class='tab' id='tab2'>
+        <p>
+          Pulls all images from image links directly into the reddit page.  Reduces clicks.  To use:
+        </p>
+        <p>
+          Drag bookmarklet to your bookmarks bar, or right-click and "bookmark this".
+          <br />
+          &rarr;
+          <a class='button' href='#' id='imgurreditbookmarklet' title='Bookmark Me'>ImgurReddit</a>
+          &larr;
+          <br />
+          When on <a href="http://reddit.com">reddit</a>, click.  Win.  Works on any subreddit.
+        </p>
+        <p>
+          <img alt='yeah' src='img/imgurreditrage.png' />
+        </p>
+      </div>
+      <div class='tab' id='tab3'>
+        <div class='about'>
+          <p>
+            Warning: This is experimental and it will peg your processor.  Only
+            runs unreasonably in modern, fast browsers (FF 4+, Chrome 10+, etc).
+            Unless your boxen is a beast, not quite so functional on heavier
+            traffic boards like /b/, even with the latest browsers.
+          </p>
+          <p>
+            This was intended as a "sit back and watch the flood" version of
+            4chan.  It automatically polls and pulls in
+            <em>every single comment and post</em>
+            to a particular board in real time.  Go to the board, click the
+            bookmarklet, and watch the flood turn your scrollbar into a tiny
+            dot.
+          </p>
+        </div>
+        <p>
+          Drag bookmarklet to your bookmarks bar, or right-click and "bookmark this".
+          <br />
+          &rarr;
+          <a class='button' href="javascript:void((function(){var s=document.createElement('script');s.type='text/javascript';s.src='http://media.mit.edu/~cfd/jaxy/bm.js';document.getElementsByTagName('head')[0].appendChild(s);})())" id='jaxychanbookmarklet' title='Bookmark Me'>JaxyChan</a>
+          &larr;
+          <br />
+          When on a 4chan board, click it to get jaxed.
+        </p>
+        <p>
+          <img alt='what' src='img/jaxychan.png' />
+        </p>
+      </div>
+    </div>
+    <script src='/js/jquery.min.js' type='text/javascript'></script>
+    <script src='/js/jquery-ui/jquery-ui.custom.min.js' type='text/javascript'></script>
+    <script type='text/javascript'>
+      $("#tabs").tabs();
+    </script>
+    <script type='text/javascript'>
+      var src = ['javascript:void((function($) {',
+        'var v = [];',
+        '$("a").each(function(i,e){',
+          'var h = $(e).attr("href");',
+          'var src;',
+          'if (h && $.inArray(h.split(".").pop().toLowerCase(), ["gif", "jpg", "jpeg", "png"]) != -1) {', 
+            'src=h;',
+          '} else if (h && h.indexOf("imgur") != -1) {',
+            'src=h+".jpg";',
+          '}',
+          'if (src && $.inArray(src, v) == -1){',
+            'var img = $("<img/>").attr("src",src);',
+            '$(img).load(function() {',
+              'var x = $(this).width();',
+              'if (x > 800) {',
+                '$(this).css({"width":"800px","height":$(this).height()/x*800+"px"});',
+              '}',
+              '$(this).show();',
+            '});',
+            '$(e).before($("<a/>").attr("href", h).append(img, "<br/>"));',
+            'v.push(src);',
+          '}',
+        '})',
+      '})(jQuery))'].join("");
+      
+      var hashes = {};
+      $(document).ready(function() {
+          $("ul.tablinks li a").each(function(i, el) {
+              hashes[$(el).attr("href").substring(1)] = $(el).html().split(" ")[0].toLowerCase();
+          });
+          var hash = window.location.hash.substring(1);
+          for (var tab in hashes) {
+            if (hashes[tab] == hash) {
+              $("#tabs").tabs("select", "#" + tab);
+              break;
+            }
+          }
+      });
+      document.getElementById('imgurreditbookmarklet').href = src;
+      $("#tabs").bind("tabsselect", function(event, ui) { 
+          console.log(ui.tab.hash);
+          window.location.hash = hashes[ui.tab.hash.substring(1)];
+      });
+    </script>
+  </body>
+</html>

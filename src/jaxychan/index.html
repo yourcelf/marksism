@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>I'm In Ur Chan Ajaxin Ur Threads</title>
+    </head>
+    <body>
+        <p>The bookmarklet: &rarr; 
+<a href='' id='bookmarklet'>JaxyChan</a> &larr; (drag this to your bookmarks bar, or right-click and "bookmark this")
+    </body>
+    <script type='text/javascript'>
+        var server_url = window.location.href.replace("index.html", "");
+        var src = ["javascript:void(window.loadJaxy = function() {",
+                        'if (!window.jaxy) {',
+                            "if (!window.jaxyInserted) {",
+                                'var s = document.createElement("script");',
+                                's.src = "', server_url, 'jaxychan.js";', 
+                                'document.getElementsByTagName("head")[0].appendChild(s);',
+                                'window.jaxyInserted = true;',
+                            '}',
+                            'setTimeout("loadJaxy()", 50);',
+                        '} else {',
+                            'jaxy.start();',
+                        '}',
+                    '});',
+                    'loadJaxy();'].join("");
+        document.getElementById('bookmarklet').href = src;
+    </script>
+</html>
