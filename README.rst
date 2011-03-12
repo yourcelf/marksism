@@ -2,7 +2,7 @@ Leechmarks
 ==================
 
 This is a small collection of bookmarklets for social websites.  More info:
-`website <http://web.media.mit.edu/~cfd/leechmarks/>`_.
+http://marks.tirl.org.
 
 GraphFi
 -------
