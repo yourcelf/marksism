@@ -134,7 +134,7 @@
       $("#tabs").tabs();
     </script>
     <script type='text/javascript'>
-      var server_root = document.location.href.replace("index.html", "");
+      var server_root = document.location.href.replace("index.html", "").split("#")[0];
       var sources = {
         'imgurreddit': ['javascript:void((function($) {',
             'var v = [];',
