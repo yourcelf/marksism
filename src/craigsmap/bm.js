@@ -1,5 +1,6 @@
 (function($) {
 
+var stopped = false;
 var entries = [];
 var noAddress = [];
 var map;
@@ -119,8 +120,14 @@ function loadEntryPages() {
     entryIndex++;
     loading.html("Loading (" + entryIndex + " / " +
                                entries.length + "), estimated time " + 
-                 (1.25 * entries.length - entryIndex) + " seconds.");
-    if (entryIndex < entries.length) {
+                 (1.25 * entries.length - entryIndex) + " seconds. ");
+    loading.append(
+        $("<a/>").attr("href", "#").html("stop").click(function() {
+            stopped = true;
+            return false;
+        })
+    );
+    if (entryIndex < entries.length && !stopped) {
         $.ajax({
             url: entry.href, 
             type: 'GET',

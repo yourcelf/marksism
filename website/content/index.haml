@@ -166,7 +166,6 @@
         }
         for (var name in sources) {
           $("#" + name + "bookmarklet").attr('href', sources[name]);
-          console.log($("#" + name + "bookmarklet"));
         }
 
         // Bookmarklet tooltip
@@ -197,7 +196,6 @@
             }
         });
         $("#tabs").bind("tabsselect", function(event, ui) { 
-            console.log(ui.tab.hash);
             window.location.hash = hashes[ui.tab.hash.substring(1)];
         });
 
