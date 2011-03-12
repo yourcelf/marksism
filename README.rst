@@ -4,24 +4,6 @@ Leechmarks
 This is a small collection of bookmarklets for social websites.  More info:
 http://marks.tirl.org.
 
-GraphFi
--------
-
-A visualization/navigation tool for Metafilter comment threads.
-
-ImgurReddit
------------
-
-Pulls images into reddit pages directly.  No more clicking!
-
-JaxyChan (experimental)
------------------------
-
-An attempt at directing the firehose of posts on 4chan boards at your browser.
-
-Website
-=======
-
 Also included is the source for http://marks.tirl.org.  You will need 
 `nanoc3 <http://nanoc.stoneship.org>`_ to compile it.
 
