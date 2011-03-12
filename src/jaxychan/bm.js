@@ -497,3 +497,4 @@ function ChanPost(node, threadId, isReply) {
         );
     };
 }
+jaxy.start();
