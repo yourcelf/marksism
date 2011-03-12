@@ -3,16 +3,16 @@
   <head>
     <link href='/js/jquery-ui/jquery-ui.custom.css' rel='stylesheet' type='text/css' />
     <link href='/css/style.css' rel='stylesheet' type='text/css' />
-    <title>Leechmarks</title>
+    <title>Marksism</title>
   </head>
   <body>
     <div class='forkmeholder'>
       <div class='forkme'>
-        <a href='http://github.com/yourcelf/leechmarks'>Fork me on GitHub!</a>
+        <a href='http://github.com/yourcelf/markslets'>Fork me on GitHub!</a>
       </div>
     </div>
     <div style='text-align: center;'>
-      <h1>Leechmarks</h1>
+      <h1>Marksism</h1>
       <p>This is a small collection of bookmarklets for social websites.</p>
     </div>
     <div class='ui-widget-content' id='tabs'>
@@ -24,7 +24,10 @@
           <a href='#tab2'>ImgurReddit</a>
         </li>
         <li>
-          <a href='#tab3'>JaxyChan (experimental)</a>
+          <a href='#tab3'>CraigsMap (beta)</a>
+        </li>
+        <li>
+          <a href='#tab4'>JaxyChan (experimental)</a>
         </li>
       </ul>
       <div class='tab' id='tab1'>
@@ -35,7 +38,7 @@
           Drag this bookmarklet to your bookmarks bar, or right-click and "bookmark this".
           <br />
           &rarr;
-          <a class='button' href="javascript:void((function(){var s=document.createElement('script');s.type='text/javascript';s.src='http://media.mit.edu/~cfd/graphfi/bm.js';document.getElementsByTagName('head')[0].appendChild(s);})())" id='graphfibookmarklet' title='Bookmark Me'>GraphFi</a>
+          <a class='button' href='#' id='graphfibookmarklet'>GraphFi</a>
           &larr;
           <br />
         </p>
@@ -61,16 +64,33 @@
           Drag bookmarklet to your bookmarks bar, or right-click and "bookmark this".
           <br />
           &rarr;
-          <a class='button' href='#' id='imgurreditbookmarklet' title='Bookmark Me'>ImgurReddit</a>
+          <a class='button' href='#' id='imgurredditbookmarklet'>ImgurReddit</a>
           &larr;
           <br />
-          When on <a href="http://reddit.com">reddit</a>, click.  Win.  Works on any subreddit.
         </p>
+        <p>When on <a href="http://reddit.com">reddit</a>, click.  Win.  Works on any subreddit.</p>
         <p>
           <img alt='yeah' src='img/imgurreditrage.png' />
         </p>
       </div>
       <div class='tab' id='tab3'>
+        <p>
+          Puts the location, location, location in CraigsList apartment listings.
+        </p>
+        <p>
+          Drag bookmarklet to your bookmarks bar, or right-click and "bookmark this".
+          <br />
+          &rarr;
+          <a class='button' href='#' id='imgurredditbookmarklet'>CraigsMap</a>
+          &larr;
+          <br />
+        </p>
+        <p>Search for a neighborhood/search terms on craigslist housing search.  Click bookmarklet to map them.</p>
+        <p>
+          <img alt='yeah' src='img/craigsmap.png' />
+        </p>
+      </div>
+      <div class='tab' id='tab4'>
         <div class='about'>
           <p>
             Warning: This is experimental and it will peg your processor.  Only
@@ -91,9 +111,11 @@
           Drag bookmarklet to your bookmarks bar, or right-click and "bookmark this".
           <br />
           &rarr;
-          <a class='button' href="javascript:void((function(){var s=document.createElement('script');s.type='text/javascript';s.src='http://media.mit.edu/~cfd/jaxy/bm.js';document.getElementsByTagName('head')[0].appendChild(s);})())" id='jaxychanbookmarklet' title='Bookmark Me'>JaxyChan</a>
+          <a class='button' href="javascript:void((function(){var s=document.createElement('script');s.type='text/javascript';s.src='http://media.mit.edu/~cfd/jaxy/bm.js';document.getElementsByTagName('head')[0].appendChild(s);})())" id='jaxychanbookmarklet'>JaxyChan</a>
           &larr;
           <br />
+        </p>
+        <p>
           When on a 4chan board, click it to get jaxed.
         </p>
         <p>
@@ -107,31 +129,70 @@
       $("#tabs").tabs();
     </script>
     <script type='text/javascript'>
-      var src = ['javascript:void((function($) {',
-        'var v = [];',
-        '$("a").each(function(i,e){',
-          'var h = $(e).attr("href");',
-          'var src;',
-          'if (h && $.inArray(h.split(".").pop().toLowerCase(), ["gif", "jpg", "jpeg", "png"]) != -1) {', 
-            'src=h;',
-          '} else if (h && h.indexOf("imgur") != -1) {',
-            'src=h+".jpg";',
-          '}',
-          'if (src && $.inArray(src, v) == -1){',
-            'var img = $("<img/>").attr("src",src);',
-            '$(img).load(function() {',
-              'var x = $(this).width();',
-              'if (x > 800) {',
-                '$(this).css({"width":"800px","height":$(this).height()/x*800+"px"});',
+      var server_root = document.location.href.replace("index.html", "");
+      var sources = {
+        'imgurreddit': ['javascript:void((function($) {',
+            'var v = [];',
+            '$("a").each(function(i,e){',
+              'var h = $(e).attr("href");',
+              'var src;',
+              'if (h && $.inArray(h.split(".").pop().toLowerCase(), ["gif", "jpg", "jpeg", "png"]) != -1) {', 
+                'src=h;',
+              '} else if (h && h.indexOf("imgur") != -1) {',
+                'src=h+".jpg";',
               '}',
-              '$(this).show();',
-            '});',
-            '$(e).before($("<a/>").attr("href", h).append(img, "<br/>"));',
-            'v.push(src);',
-          '}',
-        '})',
-      '})(jQuery))'].join("");
+              'if (src && $.inArray(src, v) == -1){',
+                'var img = $("<img/>").attr("src",src);',
+                '$(img).load(function() {',
+                  'var x = $(this).width();',
+                  'if (x > 800) {',
+                    '$(this).css({"width":"800px","height":$(this).height()/x*800+"px"});',
+                  '}',
+                  '$(this).show();',
+                '});',
+                '$(e).before($("<a/>").attr("href", h).append(img, "<br/>"));',
+                'v.push(src);',
+              '}',
+            '})',
+          '})(jQuery))'].join(""),
+        'graphfi': ["javascript:void((function() {",
+                      "var s=document.createElement('script');",
+                      "s.type='text/javascript';",
+                      "s.src='", server_root, "src/graphfi/bm.js';",
+                      "document.getElementsByTagName('head')[0].appendChild(s);",
+                    "})())"].join(""),
+        'jaxychan': ["javascript:void((function() {",
+                      "var s=document.createElement('script');",
+                      "s.type='text/javascript';",
+                      "s.src='", server_root, "src/jaxychan/bm.js';",
+                      "document.getElementsByTagName('head')[0].appendChild(s);",
+                    "})())"].join(""),
+        'craigsmap': ["javascript:void((function() {",
+                      "var s=document.createElement('script');",
+                      "s.type='text/javascript';",
+                      "s.src='", server_root, "src/craigsmap/bm.js';",
+                      "document.getElementsByTagName('head')[0].appendChild(s);",
+                    "})())"].join("")
+      }
+      for (var name in sources) {
+        $("#" + name + "bookmarklet").attr('href', sources[name]);
+        console.log($("#" + name + "bookmarklet"));
+      }
       
+      // Bookmarklet tooltip
+      var tooltip = $("<div/>").attr("id", "tooltip").html("Bookmark Me").hide();
+      $("body").append(tooltip);
+      $(".button").hover(function() {
+        var pos = $(this).offset();
+        $("#tooltip").css({
+          "left": pos.left + ($(this).width() / 2) - ($("#tooltip").width() / 2) + 30,
+          "top": pos.top + 40
+        }).fadeIn();
+      }, function() {
+        $("#tooltip").fadeOut();
+      });
+      
+      // Handle tab hash stuff.
       var hashes = {};
       $(document).ready(function() {
           $("ul.tablinks li a").each(function(i, el) {
@@ -145,7 +206,6 @@
             }
           }
       });
-      document.getElementById('imgurreditbookmarklet').href = src;
       $("#tabs").bind("tabsselect", function(event, ui) { 
           console.log(ui.tab.hash);
           window.location.hash = hashes[ui.tab.hash.substring(1)];

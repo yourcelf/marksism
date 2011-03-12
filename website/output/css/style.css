@@ -232,7 +232,7 @@ a.button, a.button:visited {
   padding: 0.5em 1.5em;
   font-weight: bold;
   font-size: 1.3em;
-  background: url("../js/jquery-ui/images/ui-bg_fine-grain_65_654b24_60x60.png");
+  background: url("../js/jquery-ui/images/ui-bg_fine-grain_68_b83400_60x60.png");
   color: white;
 }
 /* line 7, /var/lib/gems/1.8/gems/compass-0.10.6/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
@@ -263,14 +263,26 @@ a.button:hover {
   margin-right: auto;
 }
 
-/* line 37, content/css/style.sass */
+/* line 36, content/css/style.sass */
+#tooltip {
+  position: absolute;
+  color: orange;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  z-index: 10;
+  padding: 0.5em;
+  text-align: center;
+  opacity: 0.8;
+  font-weight: bold;
+}
+
+/* line 46, content/css/style.sass */
 .tab {
   overflow: hidden;
   *zoom: 1;
   text-align: center;
 }
 
-/* line 41, content/css/style.sass */
+/* line 50, content/css/style.sass */
 .forkmeholder {
   position: absolute;
   right: 0;
@@ -279,7 +291,7 @@ a.button:hover {
   height: 500px;
   overflow: hidden;
 }
-/* line 48, content/css/style.sass */
+/* line 57, content/css/style.sass */
 .forkmeholder .forkme {
   background: url("../js/jquery-ui/images/ui-bg_fine-grain_65_654b24_60x60.png");
   position: absolute;
@@ -295,7 +307,7 @@ a.button:hover {
   right: -4em;
   top: 2.5em;
 }
-/* line 56, content/css/style.sass */
+/* line 65, content/css/style.sass */
 .forkmeholder .forkme a {
   border: 1px solid #aaaaff;
   color: white;
@@ -308,11 +320,11 @@ a.button:hover {
   text-decoration: none;
   text-shadow: 0 0 0.5em #444444;
 }
-/* line 67, content/css/style.sass */
+/* line 76, content/css/style.sass */
 .forkmeholder .forkme a:hover {
   color: white;
 }
-/* line 69, content/css/style.sass */
+/* line 78, content/css/style.sass */
 .forkmeholder .forkme:hover {
   background-color: blue;
 }
