@@ -1,4 +1,4 @@
-Leechmarks
+Marks-ism
 ==================
 
 This is a small collection of bookmarklets for social websites.  More info:
