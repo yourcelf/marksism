@@ -316,7 +316,9 @@ function addReferences() {
                 return false;
             });
             comment.find("span.smallcopy").append(
-                "<span class='graphfi'>[", a, "]</span>"
+                $("<span/>").attr("class", "graphfi").append(
+                    "[", a, "]"
+                )
             );
         }
     });
