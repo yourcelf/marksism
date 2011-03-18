@@ -248,7 +248,7 @@ function extractQuotes() {
 }
 function addReferences() {
     // Add quote references inline in comments.
-    $(comments).find(".graphfi").remove();
+    $(".graphfi").remove();
     $.each(comments, function(i, comment) {
         // back references
         var quoteElements = cdata[i].quoteElements;
