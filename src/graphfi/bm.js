@@ -26,6 +26,8 @@
 
 (function($) {
 
+var selectingShadowColor = "#444"
+
 
 var bar = $("<div/>").css({
     'position': 'fixed',
@@ -278,9 +280,9 @@ function addReferences() {
                     "top": comment.offset().top + comment.height(),
                     "width": (comment.width() - 25) + "px",
                     //"border-top": "1px dotted black",
-                    "box-shadow": "0px 12px 12px #900",
-                    "-moz-box-shadow": "0px 12px 12px #900",
-                    "-webkit-box-shadow": "0px 12px 12px #900",
+                    "box-shadow": "0px 12px 12px " + selectingShadowColor,
+                    "-moz-box-shadow": "0px 12px 12px " + selectingShadowColor,
+                    "-webkit-box-shadow": "0px 12px 12px " + selectingShadowColor,
                     "background-color": "inherit",
                     "z-index": 10,
                     "padding": "1em"
@@ -381,9 +383,9 @@ function draw() {
         if (selecting) {
             ctx.fillStyle = "rgba(66, 0, 0, 255)";
             comment.css({ 
-                "box-shadow": "0px 0px 12px #f00",
-                "-moz-box-shadow": "0px 0px 12px #f00",
-                "-webkit-box-shadow": "0px 0px 12px #f00"
+                "box-shadow": "0px 0px 12px " + selectingShadowColor,
+                "-moz-box-shadow": "0px 0px 12px " + selectingShadowColor,
+                "-webkit-box-shadow": "0px 0px 12px " + selectingShadowColor
             });
         } else if (hovering) {
             ctx.fillStyle = "rgba(66, 33, 0, 255)";
