@@ -303,7 +303,6 @@ function addReferences() {
                         div.remove();
                         window.location.href = cdata[replyIndex].link;
                         $(reply).mouseover();
-                        $(reply.find("a.replies")).click();
                         return false;
                     });
                     div.append(clone);
