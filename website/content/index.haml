@@ -19,11 +19,7 @@
         %li
           %a{:href=>"#tab1"} GraphFi
         %li
-          %a{:href=>"#tab2"} ImgurReddit
-        %li
-          %a{:href=>"#tab3"} CraigsMap (beta)
-        %li
-          %a{:href=>"#tab4"} JaxyChan (experimental)
+          %a{:href=>"#tab2"} Twitter Tiny Icon
       #tab1.tab
         %div.about
           :markdown
@@ -56,63 +52,39 @@
         
       #tab2.tab
         %p 
-          Pulls all images from image links directly into the reddit page.  Reduces clicks.  To use:
+          Adds a tiny icon
+          %img{:src => relative_path_to("/img/tiny-icon-awesome.png"), :alt=> "B.A.N.A.N.A.S"}
+          to the twitters' favicon showing the number of unread tweets.
         %p 
           Drag bookmarklet to your bookmarks bar, or right-click and "bookmark this".
           %br
           &rarr; 
-          %a#imgurredditbookmarklet.button{:href => "#"} ImgurReddit 
+          %a#twittericonbookmarklet.button{:href => "#"} TwitterTinyIcon
           &larr;
           %br
-        %p== When on #{link_to "reddit", "http://reddit.com"}, click.  Win.  Works on any subreddit or the main page.
-        %p 
-          %img{:src => relative_path_to("/img/imgurreditrage.png"), :alt=>"yeah"}
+        %h2 Why?
+        %p== When you're on #{link_to "twitter", "https://twitter.com"}, and twitter is all like
+        %div
+          %img{:src => relative_path_to("/img/tweet-happens.png"), :alt=>"twit happens"}
+        %div
+          its toolbar is then all like
+        %div
+          %img{:src => relative_path_to("/img/toolbar-orig.png"), :alt=>"mah twits"}
+        %p{:style => "text-align: left;"}
+          But if you're using pinned tabs, or if the tab bar gets crowded, then the toolbar is all like
+          %img{:src => relative_path_to('/img/tiny-icon-unawesome.png'), :alt =>'boring'}
+          , and you can't see how many twits you've got.
+        %p{:style => "text-align: left;"}
+          We can do better! if you click this bookmarklet when you're on twitter (and you are using firefox/chrome), twitter will be all like:
+          %br
+          %img{:src => relative_path_to("/img/toolbar-awesome.png"), :alt => "Lookie little red number"}
+          %br
+          and the collapsed toolbar will be all
+          %img{:src => relative_path_to("/img/tiny-icon-awesome.png"), :alt => "This twit is bananas"}
+          , ergo, win.
+        %p
+          Built with the awesome <a href='http://tommoor.github.io/tinycon/'>Tinycon</a>.
           
-
-      #tab3.tab
-        %p 
-          Puts the location, location, location in CraigsList apartment listings.
-        %p 
-          Drag bookmarklet to your bookmarks bar, or right-click and "bookmark this".
-          %br
-          &rarr; 
-          %a#craigsmapbookmarklet.button{:href => "#"} CraigsMap 
-          &larr;
-          %br
-        %p== Search for a neighborhood/search terms on craigslist housing search.  Click bookmarklet to map them.
-        %p 
-          %img{:src => relative_path_to("/img/craigsmap.png"), :alt=>"yeah"}
-          
-
-
-      #tab4.tab
-        .about
-          %p 
-            Warning: This is experimental and it will peg your processor.  Only
-            runs unreasonably in modern, fast browsers (FF 4+, Chrome 10+, etc).
-            Unless your boxen is a beast, not quite so functional on heavier
-            traffic boards like /b/, even with the latest browsers.
-
-          %p
-            This was intended as a "sit back and watch the flood" version of
-            4chan.  It automatically polls and pulls in 
-            %em every single comment and post
-            to a particular board in real time.  Go to the board, click the
-            bookmarklet, and watch the flood turn your scrollbar into a tiny
-            dot.
-        %p
-          Drag bookmarklet to your bookmarks bar, or right-click and "bookmark this".
-          %br
-          &rarr;
-          %a#jaxychanbookmarklet.button{:href => "javascript:void((function(){var s=document.createElement('script');s.type='text/javascript';s.src='http://media.mit.edu/~cfd/jaxy/bm.js';document.getElementsByTagName('head')[0].appendChild(s);})())"} JaxyChan
-          &larr;
-          %br
-        %p
-          When on a 4chan board, click it to get jaxed.
-
-        %p
-          %img{:src => relative_path_to("/img/jaxychan.png"), :alt=>"what"}
-
     %script{:type => "text/javascript", :src => "/js/jquery.min.js"}
     %script{:type => "text/javascript", :src => "/js/jquery-ui/jquery-ui.custom.min.js"}
     %script{:type => "text/javascript"}
@@ -121,48 +93,15 @@
       :plain
         var server_root = document.location.href.replace("index.html", "").split("#")[0];
         var sources = {
-          'imgurreddit': ['javascript:void((function($) {',
-              'var v = [];',
-              '$("a").each(function(i,e){',
-                'var h = $(e).attr("href");',
-                'var src;',
-                'if (h && $.inArray(h.split(".").pop().toLowerCase(), ["gif", "jpg", "jpeg", "png"]) != -1) {', 
-                  'src=h;',
-                '} else if (h && h.indexOf("imgur") != -1) {',
-                  'src=h+".jpg";',
-                '}',
-                'if (src && $.inArray(src, v) == -1){',
-                  'var img = $("<img/>").attr("src",src);',
-                  '$(img).load(function() {',
-                    'var x = $(this).width();',
-                    'if (x > 800) {',
-                      '$(this).css({"width":"800px","height":$(this).height()/x*800+"px"});',
-                    '}',
-                    '$(this).show();',
-                  '});',
-                  '$(e).before($("<a/>").attr("href", h).append(img, "<br/>"));',
-                  'v.push(src);',
-                '}',
-              '})',
-            '})(jQuery))'].join(""),
           'graphfi': ["javascript:void((function() {",
                         "var s=document.createElement('script');",
                         "s.type='text/javascript';",
                         "s.src='", server_root, "src/graphfi/bm.js';",
                         "document.getElementsByTagName('head')[0].appendChild(s);",
                       "})())"].join(""),
-          'jaxychan': ["javascript:void((function() {",
-                        "var s=document.createElement('script');",
-                        "s.type='text/javascript';",
-                        "s.src='", server_root, "src/jaxychan/bm.js';",
-                        "document.getElementsByTagName('head')[0].appendChild(s);",
-                      "})())"].join(""),
-          'craigsmap': ["javascript:void((function() {",
-                        "var s=document.createElement('script');",
-                        "s.type='text/javascript';",
-                        "s.src='", server_root, "src/craigsmap/bm.js';",
-                        "document.getElementsByTagName('head')[0].appendChild(s);",
-                      "})())"].join("")
+
+          'twittericon': "javascript:(function() { /*! Tinycon - A small library for manipulating the Favicon; Tom Moor, http://tommoor.com; Copyright (c) 2012 Tom Moor; MIT Licensed; @version 0.5; */(function(){var Tinycon={};var currentFavicon=null;var originalFavicon=null;var originalTitle=document.title;var faviconImage=null;var canvas=null;var options={};var defaults={width:7,height:9,font:'10px arial',colour:'#ffffff',background:'#F03D25',fallback:true,abbreviate:true};var ua=(function(){var agent=navigator.userAgent.toLowerCase();return function(browser){return agent.indexOf(browser)!==-1}}());var browser={ie:ua('msie'),chrome:ua('chrome'),webkit:ua('chrome')||ua('safari'),safari:ua('safari')&&!ua('chrome'),mozilla:ua('mozilla')&&!ua('chrome')&&!ua('safari')};var getFaviconTag=function(){var links=document.getElementsByTagName('link');for(var i=0,len=links.length;i<len;i++){if((links[i].getAttribute('rel')||'').match(/\bicon\b/)){return links[i]}}return false};var removeFaviconTag=function(){var links=document.getElementsByTagName('link');var head=document.getElementsByTagName('head')[0];for(var i=0,len=links.length;i<len;i++){var exists=(typeof(links[i])!=='undefined');if(exists&&(links[i].getAttribute('rel')||'').match(/\bicon\b/)){head.removeChild(links[i])}}};var getCurrentFavicon=function(){if(!originalFavicon||!currentFavicon){var tag=getFaviconTag();originalFavicon=currentFavicon=tag?tag.getAttribute('href'):'/favicon.ico'}return currentFavicon};var getCanvas=function(){if(!canvas){canvas=document.createElement('canvas');canvas.width=16;canvas.height=16}return canvas};var setFaviconTag=function(url){removeFaviconTag();var link=document.createElement('link');link.type='image/x-icon';link.rel='icon';link.href=url;document.getElementsByTagName('head')[0].appendChild(link)};var log=function(message){if(window.console)window.console.log(message)};var drawFavicon=function(label,colour){if(!getCanvas().getContext||browser.ie||browser.safari||options.fallback==='force'){return updateTitle(label)}var context=getCanvas().getContext('2d');var colour=colour||'#000000';var src=getCurrentFavicon();faviconImage=new Image();faviconImage.onload=function(){context.clearRect(0,0,16,16);context.drawImage(faviconImage,0,0,faviconImage.width,faviconImage.height,0,0,16,16);if((label+'').length>0)drawBubble(context,label,colour);refreshFavicon()};if(!src.match(/^data/)){faviconImage.crossOrigin='anonymous'}faviconImage.src=src};var updateTitle=function(label){if(options.fallback){if((label+'').length>0){document.title='('+label+') '+originalTitle}else{document.title=originalTitle}}};var drawBubble=function(context,label,colour){if(typeof label=='number'&&label>99&&options.abbreviate){label=abbreviateNumber(label)}var len=(label+'').length-1;var width=options.width+(6*len);var w=16-width;var h=16-options.height;context.font=(browser.webkit?'bold ':'')+options.font;context.fillStyle=options.background;context.strokeStyle=options.background;context.lineWidth=1;context.fillRect(w,h,width-1,options.height);context.beginPath();context.moveTo(w-0.5,h+1);context.lineTo(w-0.5,15);context.stroke();context.beginPath();context.moveTo(15.5,h+1);context.lineTo(15.5,15);context.stroke();context.beginPath();context.strokeStyle='rgba(0,0,0,0.3)';context.moveTo(w,16);context.lineTo(15,16);context.stroke();context.fillStyle=options.colour;context.textAlign='right';context.textBaseline='top';context.fillText(label,15,browser.mozilla?7:6)};var refreshFavicon=function(){if(!getCanvas().getContext)return;setFaviconTag(getCanvas().toDataURL())};var abbreviateNumber=function(label){var metricPrefixes=[['G',1000000000],['M',1000000],['k',1000]];for(var i=0;i<metricPrefixes.length;++i){if(label>=metricPrefixes[i][1]){label=round(label/metricPrefixes[i][1])+metricPrefixes[i][0];break}}return label};var round=function(value,precision){var number=new Number(value);return number.toFixed(precision)};Tinycon.setOptions=function(custom){options={};for(var key in defaults){options[key]=custom.hasOwnProperty(key)?custom[key]:defaults[key]}return this};Tinycon.setImage=function(url){currentFavicon=url;refreshFavicon();return this};Tinycon.setBubble=function(label,colour){label=label||'';drawFavicon(label,colour);return this};Tinycon.reset=function(){setFaviconTag(originalFavicon)};Tinycon.setOptions(defaults);window.Tinycon=Tinycon})(); setInterval(function(){ Tinycon.setImage('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACHUlEQVQ4y81RTWsTURQ9dzKZTD7KzDQ0lmiZRBIkYMkohW6UNhvFdYu4EW3RpTT9A5Uu3ErQhQuhiXUrohVRNyaFugi0aWKFCoZ0UqqR1poZTSxJk4yLEkliqi49cOG9e945vHsu8F/g615V+BMXfrl2ezT2Jn71yWo0VyzLTS5XLMuUKmjKxLO1WPzy8EivldM7xaGHycWMIQXB24H9CgTtoz5x0jWXUHdDN0OBW4xebfRnbJ7gqftLmVRBU1oNYpmtyYzNE4TTDdgFQHRBHxgUInmazkk+39ONb2OMLFg/gbcj3xeQT8+vrLZ+U4NlALy9fSYTCzjdmPQLz6PnfbP0Wt09t6Dx1yPZyjgAQNsGtjfhsdGG4Txqzlv7j3XLxhiT/ESUZSUr9yPyamMcTvcBI7oA0QV1v+I9LFhFNGWJKAsAjOJypMPD3ke/vTJbDqoLRoTGcvPMEFFp6jh7dybAzwssSv+y9vAJ271fBgAgmml94d3mkF6pOf4mviJzLzw9XLJ5JwAwDMMEQImqlYuLX2qDD/LVC4fNHj9jvyTx7EqzxwIAEdVTBa2ufv7OJtRKEObe7uKzjmsix6Rb+zQTfz97J5m7oZFFQo8TkI60hSewKE35+cfTPsucyDFLRFRvMzAMQy5WG4HETm0ordf9b7W6V+CoJNuYHUUwfRjtY5cljlkHsNUp7sxAAmAH4ABQB7AHoAyg2E3YxE/0c8QV0ibQWAAAAABJRU5ErkJggg=='); Tinycon.setBubble(parseInt($('.new-tweets-bar').attr('data-item-count')));}, 1000); })()"
+
         }
         for (var name in sources) {
           $("#" + name + "bookmarklet").attr('href', sources[name]);
