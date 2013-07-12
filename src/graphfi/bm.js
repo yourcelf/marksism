@@ -156,7 +156,7 @@ function loadComments() {
             c.find("span.smallcopy a").each(function(i, a) {
                 var href = $(a).attr("href");
                 if (href) {
-                    if (href.substring(0, "/favorited/".length) == "/favorited/") {
+                    if (href.indexOf("/favorited/") != -1) {
                         var txt = $(a).text()
                         num = parseInt($(a).text().replace(/[^\d]/, ""));
                     } else if (href.indexOf("/user/") != -1) {
