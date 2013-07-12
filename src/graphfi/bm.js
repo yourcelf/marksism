@@ -42,7 +42,7 @@ var tooltip = $("<div/>").css({
     "width": "80%",
     "opacity": "0.95",
     "left": bar.width() + "px",
-    "font-size": "0.75em",
+    "font-size": "12px",
     "display": "none"
 }).html("&nbsp;");
 $("body").append(tooltip);
@@ -280,7 +280,7 @@ function addReferences() {
                 div.append($("<a/>").html("close (X)").attr("href", "").click(
                     removeIt
                 ).css({
-                    "position": "absolute", "right": "1em", "top": "1em", "font-size": "0.75em"
+                    "position": "absolute", "right": "1em", "top": "1em", "font-size": "12px"
                 }));
                 $.each(replies, function(r, replyIndex) {
                     var reply = comments[replyIndex];
@@ -297,7 +297,7 @@ function addReferences() {
                 div.append($("<a/>").html("close (X)").attr("href", "").click(
                     removeIt
                 ).css({
-                    "position": "absolute", "right": "1em", "bottom": "1em", "font-size": "0.75em"
+                    "position": "absolute", "right": "1em", "bottom": "1em", "font-size": "12px"
                 }));
                 $("body").append(div);
                 return false;
