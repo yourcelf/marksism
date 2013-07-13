@@ -37,8 +37,6 @@ var tooltip = $("<div/>").css({
     "border": "1px solid black",
     "margin-top": "-0.5em",
     "box-shadow": "0px 0px 12px #000",
-    "-moz-box-shadow": "0px 0px 12px #000",
-    "-webkit-box-shadow": "0px 0px 12px #000",
     "width": "80%",
     "opacity": "0.95",
     "left": bar.width() + "px",
@@ -244,11 +242,21 @@ function addReferences() {
             return false;
         }
         for (var q in quoteElements) {
-            quoteElements[q].before($("<a/>").attr({
-                "class": "graphfi",
-                "href": cdata[q].link,
-                "title": cdata[q].author
-            }).html("&gt;&nbsp;"));
+            (function(q) {
+                var backReference = $("<a/>").attr({
+                    "class": "graphfi",
+                    //"title": cdata[q].author,
+                    "href": cdata[q].link
+                }).html("&gt;&nbsp;")
+                backReference.hover(function() {
+                    tooltip.show();
+                    tooltip.html(comments[q].html());
+                    tooltip.css("top", (backReference.offset().top + 25) + "px");
+                }, function() {
+                    tooltip.hide();
+                });
+                quoteElements[q].before(backReference);
+            })(q);
         }
         // forward references
         var replies = cdata[i].replies;
@@ -267,8 +275,6 @@ function addReferences() {
                     "width": (comment.width() - 25) + "px",
                     //"border-top": "1px dotted black",
                     "box-shadow": "0px 12px 12px " + selectingShadowColor,
-                    "-moz-box-shadow": "0px 12px 12px " + selectingShadowColor,
-                    "-webkit-box-shadow": "0px 12px 12px " + selectingShadowColor,
                     "background-color": "inherit",
                     "z-index": 10,
                     "padding": "1em"
@@ -284,12 +290,19 @@ function addReferences() {
                 }));
                 $.each(replies, function(r, replyIndex) {
                     var reply = comments[replyIndex];
-                    var clone = reply.clone();
+                    var clone = reply.clone(true);
+                    clone.addClass("graphfi-clone");
                     clone.find("a.replies").click(function() {
                         div.remove();
                         window.location.href = cdata[replyIndex].link;
                         $(reply).mouseover();
                         return false;
+                    });
+                    clone.bind('click.graphfi', function() {
+                        $(".graphfi-clone").css("box-shadow", "none");
+                        clone.css({
+                            "box-shadow": "0px 0px 12px " + selectingShadowColor
+                        });
                     });
                     div.append(clone);
                     div.append("<br/><br/>");
@@ -354,6 +367,7 @@ function setUpCanvas() {
 ***************************************************/
 
 function draw() {
+    $(".graphfi-clone").css("box-shadow", "none");
     ctx.clearRect(0, 0, cWidth, cHeight);
     // draw bars
     for (var i = 0; i < maxCommentsAtOnce; i++) {
@@ -368,22 +382,16 @@ function draw() {
         if (selecting) {
             ctx.fillStyle = "rgba(66, 0, 0, 255)";
             comment.css({ 
-                "box-shadow": "0px 0px 12px " + selectingShadowColor,
-                "-moz-box-shadow": "0px 0px 12px " + selectingShadowColor,
-                "-webkit-box-shadow": "0px 0px 12px " + selectingShadowColor
+                "box-shadow": "0px 0px 12px " + selectingShadowColor
             });
         } else if (hovering) {
             ctx.fillStyle = "rgba(66, 33, 0, 255)";
             comment.css({ 
-                "box-shadow": "0px 0px 12px #966",
-                "-moz-box-shadow": "0px 0px 12px #966",
-                "-webkit-box-shadow": "0px 0px 12px #966"
+                "box-shadow": "0px 0px 12px #966"
             });
         } else {
             comment.css({ 
-                "box-shadow": "none",
-                "-moz-box-shadow": "none",
-                "-webkit-box-shadow": "none"
+                "box-shadow": "none"
             });
         }
         ctx.strokeStyle = "black";
@@ -484,9 +492,7 @@ function setUpInteraction() {
             draw();
             var c = comments[hovered + minComment]; 
             tooltip.show();
-            tooltip.html(
-                c.html()
-            );
+            tooltip.html(c.html());
             var tooltipY;
             if (y > canvasHolder.height()/2 || y + tooltip.height() > canvasHolder.height()) {
                 tooltipY = Math.max(canvasPageY, evt.pageY - tooltip.height());
@@ -507,6 +513,7 @@ function setUpInteraction() {
         if (selected != null) {
             $(window).scrollTop(comments[selected + minComment].offset().top - 20);
         }
+        tooltip.hide();
     });
     $(comments).unbind('.graphfi');
     $(comments).each(function(i, el) {
