@@ -9,6 +9,7 @@
 (function() {
 
 var selectingShadowColor = "#444"
+var classicTheme = !!$("#body").length;
 
 
 var bar = $("<div/>").css({
@@ -39,8 +40,8 @@ var tooltip = $("<div/>").css({
     "box-shadow": "0px 0px 12px #000",
     "width": "80%",
     "opacity": "0.95",
-    "left": "0px",
-    "font-size": "90%",
+    "left": classicTheme ? bar.width() + "px" : "0px",
+    "font-size": classicTheme ? "12px" : "90%",
     "display": "none"
 }).html("&nbsp;");
 $("body").append(tooltip);
@@ -289,9 +290,13 @@ function addReferences() {
                   return removeIt();
                 }
                 comment.addClass("graphfi-replies-open");
+                var left = comment.offset().left;
+                if (!classicTheme) {
+                    left -= bar.width();
+                }
                 var div = $("<div/>").css({
                     "position": "absolute",
-                    "left": (comment.offset().left - bar.width()) + "px",
+                    "left": left + "px",
                     "top": (comment.offset().top + comment.height()) + "px",
                     "width": (comment.width() - 25) + "px",
                     //"border-top": "1px dotted black",
@@ -303,7 +308,11 @@ function addReferences() {
                 div.append($("<a/>").html("close (X)").attr("href", "").click(
                     removeIt
                 ).css({
-                    "position": "absolute", "right": "1em", "top": "1em", "font-size": "90%", "z-index": 1
+                    "position": "absolute",
+                    "right": "1em",
+                    "top": "1em",
+                    "font-size": classicTheme ? "12px" : "90%",
+                    "z-index": 1
                 }));
                 $.each(replies, function(r, replyIndex) {
                     var reply = comments[replyIndex];
@@ -327,7 +336,10 @@ function addReferences() {
                 div.append($("<a/>").html("close (X)").attr("href", "").click(
                     removeIt
                 ).css({
-                    "position": "absolute", "right": "1em", "bottom": "1em", "font-size": "90%"
+                    "position": "absolute",
+                    "right": "1em",
+                    "bottom": "1em",
+                    "font-size": classicTheme ? "12px" : "90%"
                 }));
                 $("body").append(div);
                 return false;
