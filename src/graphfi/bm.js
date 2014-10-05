@@ -1,7 +1,7 @@
 /*!
  * GraphFi
  *
- * Copyright 2011, Charlie DeTar
+ * Copyright 2014, Charlie DeTar
  * Dual licensed under the MIT or GPL Version 2 licenses.
  *
  */
@@ -13,12 +13,12 @@ var selectingShadowColor = "#444"
 
 var bar = $("<div/>").css({
     'position': 'fixed',
-    'top': '0', 
+    'top': '0',
     'left': '0',
     'width': '150px',
     'height': '100%',
     'color': 'white',
-    'z-index': 100
+    'zIndex': 100,
 }).append(
     // background for bar container.
     $("<div/>").css({
@@ -39,13 +39,15 @@ var tooltip = $("<div/>").css({
     "box-shadow": "0px 0px 12px #000",
     "width": "80%",
     "opacity": "0.95",
-    "left": bar.width() + "px",
-    "font-size": "12px",
+    "left": "0px",
+    "font-size": "90%",
     "display": "none"
 }).html("&nbsp;");
 $("body").append(tooltip);
 var canvasHolder = $("<div/>").css({
     'position': 'absolute',
+    'box-sizing': 'border-box',
+    'border-top': '37px solid #595959',
     'width': '100%',
     'height': '100%',
     'bottom': 0,
@@ -54,21 +56,30 @@ var canvasHolder = $("<div/>").css({
 bar.append(canvasHolder);
 // Close everything.
 bar.append(
+    $("<div>GraphFi</div>").css({
+        'border-top': "3px solid #9cc754",
+        'position': "absolute",
+        'font-weight': 'bold',
+        "top": 0,
+        "left": 0,
+        "width": "100%"
+    })
+);
+bar.append(
     $("<a/>").attr( "href", "").click(function() {
         // Lazy reset -- just refresh page.
         window.location.reload();
         return false;
-    }).html("X").css({
+    }).html("&times;").css({
         "position": "absolute",
+        "color": "#eee",
         "top": 0,
         "right": 0
     })
 );
+
 $("body").append(bar);
-$("#page").css({
-    "margin-left": "150px",
-    "width": "auto"
-});
+$("body").css({"margin-left": "150px"});
 var loading = $("<div/>").html("Loading GraphFi...").css({
     "position": "absolute",
     "top": "2em",
@@ -268,25 +279,31 @@ function addReferences() {
                 replies.length + (replies.length > 1 ? " replies" : " reply")
             );
             a.click(function() {
+                var replyBoxClass = "graphfi-replies-c" + i;
+                function removeIt() {
+                    $("." + replyBoxClass).remove();
+                    comment.removeClass("graphfi-replies-open");
+                    return false;
+                }
+                if (comment.hasClass("graphfi-replies-open")) {
+                  return removeIt();
+                }
+                comment.addClass("graphfi-replies-open");
                 var div = $("<div/>").css({
                     "position": "absolute",
-                    "left": comment.offset().left,
-                    "top": comment.offset().top + comment.height(),
+                    "left": (comment.offset().left - bar.width()) + "px",
+                    "top": (comment.offset().top + comment.height()) + "px",
                     "width": (comment.width() - 25) + "px",
                     //"border-top": "1px dotted black",
                     "box-shadow": "0px 12px 12px " + selectingShadowColor,
                     "background-color": "inherit",
                     "z-index": 10,
                     "padding": "1em"
-                });
-                function removeIt() {
-                    div.remove();
-                    return false;
-                }
+                }).attr("class", replyBoxClass);
                 div.append($("<a/>").html("close (X)").attr("href", "").click(
                     removeIt
                 ).css({
-                    "position": "absolute", "right": "1em", "top": "1em", "font-size": "12px"
+                    "position": "absolute", "right": "1em", "top": "1em", "font-size": "90%", "z-index": 1
                 }));
                 $.each(replies, function(r, replyIndex) {
                     var reply = comments[replyIndex];
@@ -310,7 +327,7 @@ function addReferences() {
                 div.append($("<a/>").html("close (X)").attr("href", "").click(
                     removeIt
                 ).css({
-                    "position": "absolute", "right": "1em", "bottom": "1em", "font-size": "12px"
+                    "position": "absolute", "right": "1em", "bottom": "1em", "font-size": "90%"
                 }));
                 $("body").append(div);
                 return false;
@@ -511,7 +528,7 @@ function setUpInteraction() {
             draw();
         }
         if (selected != null) {
-            $(window).scrollTop(comments[selected + minComment].offset().top - 20);
+            $(window).scrollTop(comments[selected + minComment].offset().top - 57);
         }
         tooltip.hide();
     });
