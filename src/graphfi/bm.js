@@ -43,7 +43,7 @@ var tooltip = $("<div/>").css({
     "left": classicTheme ? bar.width() + "px" : "0px",
     "font-size": classicTheme ? "12px" : "90%",
     "display": "none"
-}).html("&nbsp;");
+}).html("&nbsp;").addClass("content");
 $("body").append(tooltip);
 var canvasHolder = $("<div/>").css({
     'position': 'absolute',
@@ -304,7 +304,7 @@ function addReferences() {
                     "background-color": "inherit",
                     "z-index": 10,
                     "padding": "1em"
-                }).attr("class", replyBoxClass);
+                }).addClass(replyBoxClass).addClass("content");
                 div.append($("<a/>").html("close (X)").attr("href", "").click(
                     removeIt
                 ).css({
@@ -317,7 +317,7 @@ function addReferences() {
                 $.each(replies, function(r, replyIndex) {
                     var reply = comments[replyIndex];
                     var clone = reply.clone(true);
-                    clone.addClass("graphfi-clone");
+                    clone.addClass("graphfi-clone content");
                     clone.find("a.replies").click(function() {
                         div.remove();
                         window.location.href = cdata[replyIndex].link;
