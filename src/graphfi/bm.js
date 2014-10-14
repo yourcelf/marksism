@@ -33,7 +33,6 @@ var bar = $("<div/>").css({
 );
 var tooltip = $("<div/>").css({
     "position": "absolute",
-    "background-color": "inherit",
     "padding": "1em",
     "border": "1px solid black",
     "margin-top": "-0.5em",
@@ -42,8 +41,10 @@ var tooltip = $("<div/>").css({
     "opacity": "0.95",
     "left": classicTheme ? bar.width() + "px" : "0px",
     "font-size": classicTheme ? "12px" : "90%",
-    "display": "none"
+    "display": "none",
+    "background-color": $("body > .content").css("background-color")
 }).html("&nbsp;").addClass("content");
+
 $("body").append(tooltip);
 var canvasHolder = $("<div/>").css({
     'position': 'absolute',
