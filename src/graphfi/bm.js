@@ -10,7 +10,7 @@
 
 var selectingShadowColor = "#444"
 var classicTheme = !!$("#body").length;
-
+var background = classicTheme ? "inherit" : $("body > .content").css("background-color");
 
 var bar = $("<div/>").css({
     'position': 'fixed',
@@ -42,7 +42,7 @@ var tooltip = $("<div/>").css({
     "left": classicTheme ? bar.width() + "px" : "0px",
     "font-size": classicTheme ? "12px" : "90%",
     "display": "none",
-    "background-color": $("body > .content").css("background-color")
+    "background-color": background 
 }).html("&nbsp;").addClass("content");
 
 $("body").append(tooltip);
@@ -302,7 +302,7 @@ function addReferences() {
                     "width": (comment.width() - 25) + "px",
                     //"border-top": "1px dotted black",
                     "box-shadow": "0px 12px 12px " + selectingShadowColor,
-                    "background-color": $("body > .content").css("background-color"),
+                    "background-color": background,
                     "z-index": 10,
                     "padding": "1em"
                 }).addClass(replyBoxClass).addClass("content");
