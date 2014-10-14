@@ -302,7 +302,7 @@ function addReferences() {
                     "width": (comment.width() - 25) + "px",
                     //"border-top": "1px dotted black",
                     "box-shadow": "0px 12px 12px " + selectingShadowColor,
-                    "background-color": "inherit",
+                    "background-color": $("body > .content").css("background-color"),
                     "z-index": 10,
                     "padding": "1em"
                 }).addClass(replyBoxClass).addClass("content");
