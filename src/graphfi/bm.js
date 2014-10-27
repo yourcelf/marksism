@@ -42,7 +42,8 @@ var tooltip = $("<div/>").css({
     "left": classicTheme ? bar.width() + "px" : "0px",
     "font-size": classicTheme ? "12px" : "90%",
     "display": "none",
-    "background-color": background 
+    "background-color": background ,
+    "z-index": 10000
 }).html("&nbsp;").addClass("content");
 
 $("body").append(tooltip);
